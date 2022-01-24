@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import "./App.css";
+import { Table } from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const [result, setResult] = useState([]);
+  useEffect(() => {
+    const obj = axios
+      .get("https://run.mocky.io/v3/8260aa5d-8af8-4cff-999e-6e81b217f0ba")
+      .then((res) => {
+        setResult(res.data.clients);
+      });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table className="app-table" bordered dark>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Company</th>
+          </tr>
+        </thead>
+        {result.map((val, key) => {
+          return (
+            <tbody>
+              <tr>
+                <th scope="row">{key}</th>
+                <td>{val.name}</td>
+                <td>{val.company}</td>
+              </tr>
+            </tbody>
+          );
+        })}
+      </Table>
     </div>
   );
 }

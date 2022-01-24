@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+.app-table{
+/* margin: 10rem 0rem 10rem 10rem; */
+}
 
 .App-logo {
   height: 40vmin;
